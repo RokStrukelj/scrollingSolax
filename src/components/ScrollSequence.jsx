@@ -46,7 +46,10 @@ const ScrollSequence = () => {
         // Draw image - scaling to contain (fixes "too big" on mobile)
         const hRatio = canvas.width / img.width;
         const vRatio = canvas.height / img.height;
-        const ratio = Math.min(hRatio, vRatio);
+        // If mobile, scale down a bit more to ensure "explode" doesn't clip
+        const isMobile = window.innerWidth < 768;
+        const scaleFactor = isMobile ? 0.8 : 1;
+        const ratio = Math.min(hRatio, vRatio) * scaleFactor;
 
         const centerShift_x = (canvas.width - img.width * ratio) / 2;
         const centerShift_y = (canvas.height - img.height * ratio) / 2;
